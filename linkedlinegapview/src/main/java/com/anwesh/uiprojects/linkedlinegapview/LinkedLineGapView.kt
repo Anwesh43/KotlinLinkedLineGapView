@@ -4,6 +4,7 @@ package com.anwesh.uiprojects.linkedlinegapview
  * Created by anweshmishra on 27/06/18.
  */
 
+import android.app.Activity
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.content.Context
@@ -184,6 +185,13 @@ class LinkedLineGapView(ctx : Context) : View(ctx) {
             gap.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+        fun create(activity : Activity) {
+            val view : LinkedLineGapView = LinkedLineGapView(activity)
+            activity.setContentView(view)
         }
     }
 }
