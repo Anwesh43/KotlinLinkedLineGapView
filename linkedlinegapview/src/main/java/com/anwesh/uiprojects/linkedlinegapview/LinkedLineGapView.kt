@@ -161,4 +161,27 @@ class LinkedLineGapView(ctx : Context) : View(ctx) {
             curr.startUpdating(startcb)
         }
     }
+
+    data class Renderer(var view : LinkedLineGapView) {
+
+        private val gap : LinkedLineGap = LinkedLineGap(0)
+
+        private val animator : Animator = Animator(view)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#212121"))
+            gap.draw(canvas, paint)
+            animator.animate {
+                gap.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            gap.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
