@@ -105,14 +105,14 @@ class LinkedLineGapView(ctx : Context) : View(ctx) {
             val h : Float = canvas.height.toFloat()
             val size : Float = Math.min(w, h) / 10
             val wgap : Float = w / LG_NODES
-            val hgap : Float = h / LG_NODES
+            val hgap : Float = h / (LG_NODES * 2)
             paint.color = Color.parseColor("#673AB7")
             paint.strokeWidth = Math.min(w, h) / 60
             paint.strokeCap = Paint.Cap.ROUND
             canvas.save()
             canvas.translate(i * wgap + wgap * state.scale, h/2)
             for (i in 0..1) {
-                val gap = wgap * i + wgap * state.scale
+                val gap = hgap * this.i + hgap * state.scale
                 canvas.save()
                 canvas.drawLine(0f, gap * (1 - 2 * i), size, gap * (1 - 2 * i), paint)
                 canvas.restore()
@@ -153,7 +153,7 @@ class LinkedLineGapView(ctx : Context) : View(ctx) {
 
         fun update(stopcb : (Float) -> Unit) {
             curr.update {
-                curr.getNext(dir) {
+                curr = curr.getNext(dir) {
                     dir *= -1
                 }
                 stopcb(it)
